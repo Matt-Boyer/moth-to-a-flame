@@ -1,0 +1,18 @@
+#flame {
+    display: flex;
+    width: 50px;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+}
+
+#startButton {
+    align-self: flex-start;
+    position: absolute;
+}
