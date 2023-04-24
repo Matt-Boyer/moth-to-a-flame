@@ -4,9 +4,13 @@
 //x=random y=max
 //cursor is flame dodge moths
 
+let mothId = 0;
+
 const createMoth = () => {
     const moth = document.createElement("img");
     moth.setAttribute("src", "https://cdn-icons-png.flaticon.com/512/350/350942.png");
+    moth.setAttribute("data-id",`${mothId}`);
+    mothId++;
     document.body.appendChild(moth);
     spawnMoths(moth);
     clickMoth(moth)
@@ -19,7 +23,7 @@ const startGame = () => {
         startButton.remove();
         createScoreCounter();
         setInterval(() => {
-            createMoth()
+            createMoth();
         }, 1500);
     })
 }
@@ -27,10 +31,10 @@ const startGame = () => {
 const spawnMoths = (moth) => {
     let randomNum = Math.random() * 100;
     let edge = 0;
-    const topSpawn = `position:absolute; top:${edge}%; width:30px; right:${randomNum}%`
-    const bottomSpawn = `position:absolute; bottom:${edge}%; width:30px; right:${randomNum}%`
-    const rightSpawn = `position:absolute; top:${randomNum}%; width:30px; right:${edge}%`
-    const leftSpawn = `position:absolute; top:${randomNum}%; width:30px; left:${edge}%`
+    const topSpawn = `position:absolute; top:${edge}%; width:30px; right:${randomNum}%`;
+    const bottomSpawn = `position:absolute; bottom:${edge}%; width:30px; right:${randomNum}%`;
+    const rightSpawn = `position:absolute; top:${randomNum}%; width:30px; right:${edge}%`;
+    const leftSpawn = `position:absolute; top:${randomNum}%; width:30px; left:${edge}%`;
 
     const pickRandomSide = Math.random() * 4;
     if (pickRandomSide <= 1) {
@@ -51,10 +55,9 @@ const spawnMoths = (moth) => {
     }
 }
 
-let mothNum = 0;
-let id = mothNum;
 
 const mothMoveToFlameRight = (moth,randomNum,edge) => {
+    moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
             randomNum--;
@@ -72,6 +75,7 @@ const mothMoveToFlameRight = (moth,randomNum,edge) => {
 }
 
 const mothMoveToFlameLeft = (moth,randomNum,edge) => {
+    moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
             randomNum--;
@@ -89,6 +93,7 @@ const mothMoveToFlameLeft = (moth,randomNum,edge) => {
 }
 
 const mothMoveToFlameTop = (moth,randomNum,edge) => {
+    moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
             randomNum--;
@@ -106,7 +111,7 @@ const mothMoveToFlameTop = (moth,randomNum,edge) => {
 }
 
 const mothMoveToFlameBottom = (moth,randomNum,edge) => {
-
+    moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
             randomNum--;
@@ -146,11 +151,11 @@ const createScoreCounter = () =>    {
 }
 
 const clickMoth = (moth) => {
-    moth.addEventListener("click", () =>    {
+    moth.addEventListener("click", (event) =>    {
         count++;
         let counter = document.getElementById("counter");
         moth.remove();
-        clearInterval(moth);
+        clearInterval(moth.dataset.id);
         counter.innerText = `${count}`
     })
 }
