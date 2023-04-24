@@ -3,6 +3,33 @@
 //x=max y=random
 //x=random y=max
 //cursor is flame dodge moths
+let score = 0;
+let speed = 200;
+// let intervalOfSpawn = 1500;
+
+//Levels
+const intervalOfSpawn = () => {
+    if (score > 5 && score < 10) {
+        return 1300};
+    if (score > 10 && score < 15) {
+        return 1100;
+        speed = 10;
+    };
+    if (score > 15 && score < 20) {
+        return 900;
+        speed = 150;
+    };
+    if (score > 20) {
+        return 700;
+        speed = 130;
+    };
+
+    return 1500
+}
+// if (score > 25) {
+//     intervalOfSpawn = 400;
+//     speed = 100;
+// };
 
 let mothId = 0;
 
@@ -22,9 +49,13 @@ const startGame = () => {
     startButton.addEventListener("click", () => {
         startButton.remove();
         createScoreCounter();
-        setInterval(() => {
-            createMoth();
-        }, 1500);
+        function interval() {
+            setTimeout(() => {
+                createMoth();
+                interval()
+            }, intervalOfSpawn());
+        };
+        interval()
     })
 }
 
@@ -71,7 +102,7 @@ const mothMoveToFlameRight = (moth,randomNum,edge) => {
             gameOver()
         }
         moth.style = `position:absolute; top:${randomNum}%; width:30px; right:${edge}%`
-    }, 200);
+    }, speed);
 }
 
 const mothMoveToFlameLeft = (moth,randomNum,edge) => {
@@ -89,7 +120,7 @@ const mothMoveToFlameLeft = (moth,randomNum,edge) => {
             gameOver()
         }
         moth.style = `position:absolute; top:${randomNum}%; width:30px; left:${edge}%`
-    }, 200);
+    }, speed);
 }
 
 const mothMoveToFlameTop = (moth,randomNum,edge) => {
@@ -107,7 +138,7 @@ const mothMoveToFlameTop = (moth,randomNum,edge) => {
             gameOver()
         }
         moth.style = `position:absolute; top:${edge}%; width:30px; right:${randomNum}%`
-    }, 200);
+    }, speed);
 }
 
 const mothMoveToFlameBottom = (moth,randomNum,edge) => {
@@ -125,7 +156,7 @@ const mothMoveToFlameBottom = (moth,randomNum,edge) => {
             gameOver()
         }
         moth.style = `position:absolute; bottom:${edge}%; width:30px; right:${randomNum}%`
-    }, 200);
+    }, speed);
 }
 
 var gameOver = (function() {
@@ -141,22 +172,22 @@ var gameOver = (function() {
     };
 })();
 
-let count = 0;
+
 const createScoreCounter = () =>    {
     let counter = document.createElement("h3");
     counter.setAttribute("id", "counter");
-    counter.innerText = `${count}`;
+    counter.innerText = `${score}`;
     document.body.appendChild(counter);
     counter.style = "align-self: flex-start;position: absolute; margin:3px"
 }
 
 const clickMoth = (moth) => {
     moth.addEventListener("click", (event) =>    {
-        count++;
+        score++;
         let counter = document.getElementById("counter");
         moth.remove();
         clearInterval(moth.dataset.id);
-        counter.innerText = `${count}`
+        counter.innerText = `${score}`
     })
 }
 
