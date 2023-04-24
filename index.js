@@ -1,8 +1,12 @@
 
 //idea: cursor is flame dodge moths
+//reset button
+//display highscores in local storage
+//sound effects
+//look into click registering accurately requestanimationframe
 let score = 0;
 //higher number is slower
-let speed = 8;
+let speed = .05;
 // let intervalOfSpawn = 1500;
 
 //Levels
@@ -90,12 +94,12 @@ const mothMoveToFlameRight = (moth,randomNum,edge) => {
     moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
-            randomNum-=.06;
-            edge+=.06;
+            randomNum-=.03;
+            edge+=.03;
         }
         if (randomNum < 50) {
-            randomNum+=.06;
-            edge+=.06;
+            randomNum+=.03;
+            edge+=.03;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
             gameOver();
@@ -109,12 +113,12 @@ const mothMoveToFlameLeft = (moth,randomNum,edge) => {
     moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
-            randomNum-=.06;
-            edge+=.06;
+            randomNum-=.03;
+            edge+=.03;
         }
         if (randomNum < 50) {
-            randomNum+=.06;
-            edge+=.06;
+            randomNum+=.03;
+            edge+=.03;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
             gameOver();
@@ -128,12 +132,12 @@ const mothMoveToFlameTop = (moth,randomNum,edge) => {
     moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
-            randomNum-=.06;
-            edge+=.06;
+            randomNum-=.03;
+            edge+=.03;
         }
         if (randomNum < 50) {
-            randomNum+=.06;
-            edge+=.06;
+            randomNum+=.03;
+            edge+=.03;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
             gameOver();
@@ -147,12 +151,12 @@ const mothMoveToFlameBottom = (moth,randomNum,edge) => {
     moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
-            randomNum-=.06;
-            edge+=.06;
+            randomNum-=.03;
+            edge+=.03;
         }
         if (randomNum < 50) {
-            randomNum+=.06;
-            edge+=.06;
+            randomNum+=.03;
+            edge+=.03;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
             gameOver();
