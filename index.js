@@ -1,8 +1,8 @@
 
 //idea: cursor is flame dodge moths
 let score = 0;
-//speed not working but i might not need it
-let speed = 50;
+//higher number is slower
+let speed = 8;
 // let intervalOfSpawn = 1500;
 
 //Levels
@@ -90,15 +90,16 @@ const mothMoveToFlameRight = (moth,randomNum,edge) => {
     moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
-            randomNum-=.25;
-            edge+=.25;
+            randomNum-=.06;
+            edge+=.06;
         }
         if (randomNum < 50) {
-            randomNum+=.25;
-            edge+=.25;
+            randomNum+=.06;
+            edge+=.06;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
-            gameOver()
+            gameOver();
+            displayFinalScore();
         }
         moth.style = `position:absolute; top:${randomNum}%; width:30px; right:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -108,15 +109,16 @@ const mothMoveToFlameLeft = (moth,randomNum,edge) => {
     moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
-            randomNum-=.25;
-            edge+=.25;
+            randomNum-=.06;
+            edge+=.06;
         }
         if (randomNum < 50) {
-            randomNum+=.25;
-            edge+=.25;
+            randomNum+=.06;
+            edge+=.06;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
-            gameOver()
+            gameOver();
+            displayFinalScore();
         }
         moth.style = `position:absolute; top:${randomNum}%; width:30px; left:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -126,15 +128,16 @@ const mothMoveToFlameTop = (moth,randomNum,edge) => {
     moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
-            randomNum-=.25;
-            edge+=.25;
+            randomNum-=.06;
+            edge+=.06;
         }
         if (randomNum < 50) {
-            randomNum+=.25;
-            edge+=.25;
+            randomNum+=.06;
+            edge+=.06;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
-            gameOver()
+            gameOver();
+            displayFinalScore()
         }
         moth.style = `position:absolute; top:${edge}%; width:30px; right:${randomNum}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -144,15 +147,16 @@ const mothMoveToFlameBottom = (moth,randomNum,edge) => {
     moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
-            randomNum-=.25;
-            edge++;
+            randomNum-=.06;
+            edge+=.06;
         }
         if (randomNum < 50) {
-            randomNum+=.25;
-            edge+=.25;
+            randomNum+=.06;
+            edge+=.06;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
-            gameOver()
+            gameOver();
+            displayFinalScore()
         }
         moth.style = `position:absolute; bottom:${edge}%; width:30px; right:${randomNum}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -190,6 +194,17 @@ const clickMoth = (moth) => {
         clearInterval(moth.dataset.id);
         counter.innerText = `${score}`
     })
+}
+
+const displayFinalScore = () => {
+    let counter = document.getElementById("counter");
+    counter.remove();
+    let finalScore = score;
+    let lastScore = document.createElement("h3");
+    lastScore.setAttribute("draggable","false");
+    lastScore.innerText = `${finalScore}`;
+    document.body.appendChild(lastScore);
+    lastScore.style = "align-self: flex-start;position: absolute; margin:3px;user-select: none; -webkit-user-select: none; -moz-user-select: none;"
 }
 
 startGame()
