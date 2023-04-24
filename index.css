@@ -1,6 +1,11 @@
+
+
 #flame {
     display: flex;
     width: 50px;
+    user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 
 body {
