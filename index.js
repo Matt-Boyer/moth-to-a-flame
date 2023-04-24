@@ -1,8 +1,33 @@
-//x=0 y=random
-//x=random y=0
-//x=max y=random
-//x=random y=max
-//cursor is flame dodge moths
+
+//idea: cursor is flame dodge moths
+let score = 0;
+//speed not working but i might not need it
+let speed = 50;
+// let intervalOfSpawn = 1500;
+
+//Levels
+const intervalOfSpawn = () => {
+    if (score > 5 && score < 10) {
+        return 1200};
+    if (score > 10 && score < 15) {
+        return 1000;
+        speed = 10;
+    };
+    if (score > 15 && score < 20) {
+        return 800;
+        speed = 150;
+    };
+    if (score > 20 && score < 25) {
+        return 600;
+        speed = 130;
+    };
+    if (score > 25) {
+        return 400;
+        speed = 100;
+    };
+
+    return 1500
+}
 
 let mothId = 0;
 
@@ -10,6 +35,7 @@ const createMoth = () => {
     const moth = document.createElement("img");
     moth.setAttribute("src", "https://cdn-icons-png.flaticon.com/512/350/350942.png");
     moth.setAttribute("data-id",`${mothId}`);
+    moth.setAttribute("draggable", "false")
     mothId++;
     document.body.appendChild(moth);
     spawnMoths(moth);
@@ -22,19 +48,23 @@ const startGame = () => {
     startButton.addEventListener("click", () => {
         startButton.remove();
         createScoreCounter();
-        setInterval(() => {
-            createMoth();
-        }, 1500);
+        function interval() {
+            setTimeout(() => {
+                createMoth();
+                interval()
+            }, intervalOfSpawn());
+        };
+        interval()
     })
 }
 
 const spawnMoths = (moth) => {
     let randomNum = Math.random() * 100;
     let edge = 0;
-    const topSpawn = `position:absolute; top:${edge}%; width:30px; right:${randomNum}%`;
-    const bottomSpawn = `position:absolute; bottom:${edge}%; width:30px; right:${randomNum}%`;
-    const rightSpawn = `position:absolute; top:${randomNum}%; width:30px; right:${edge}%`;
-    const leftSpawn = `position:absolute; top:${randomNum}%; width:30px; left:${edge}%`;
+    const topSpawn = `position:absolute; top:${edge}%; width:30px; right:${randomNum}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`;
+    const bottomSpawn = `position:absolute; bottom:${edge}%; width:30px; right:${randomNum}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`;
+    const rightSpawn = `position:absolute; top:${randomNum}%; width:30px; right:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
+    const leftSpawn = `position:absolute; top:${randomNum}%; width:30px; left:${edge}%;user-select: none; -webkit-user-select: none; -moz-user-select: none;`
 
     const pickRandomSide = Math.random() * 4;
     if (pickRandomSide <= 1) {
@@ -60,72 +90,72 @@ const mothMoveToFlameRight = (moth,randomNum,edge) => {
     moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
-            randomNum--;
-            edge++;
+            randomNum-=.25;
+            edge+=.25;
         }
         if (randomNum < 50) {
-            randomNum++;
-            edge++;
+            randomNum+=.25;
+            edge+=.25;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
             gameOver()
         }
-        moth.style = `position:absolute; top:${randomNum}%; width:30px; right:${edge}%`
-    }, 200);
+        moth.style = `position:absolute; top:${randomNum}%; width:30px; right:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
+    }, speed);
 }
 
 const mothMoveToFlameLeft = (moth,randomNum,edge) => {
     moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
-            randomNum--;
-            edge++;
+            randomNum-=.25;
+            edge+=.25;
         }
         if (randomNum < 50) {
-            randomNum++;
-            edge++;
+            randomNum+=.25;
+            edge+=.25;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
             gameOver()
         }
-        moth.style = `position:absolute; top:${randomNum}%; width:30px; left:${edge}%`
-    }, 200);
+        moth.style = `position:absolute; top:${randomNum}%; width:30px; left:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
+    }, speed);
 }
 
 const mothMoveToFlameTop = (moth,randomNum,edge) => {
     moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
-            randomNum--;
-            edge++;
+            randomNum-=.25;
+            edge+=.25;
         }
         if (randomNum < 50) {
-            randomNum++;
-            edge++;
+            randomNum+=.25;
+            edge+=.25;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
             gameOver()
         }
-        moth.style = `position:absolute; top:${edge}%; width:30px; right:${randomNum}%`
-    }, 200);
+        moth.style = `position:absolute; top:${edge}%; width:30px; right:${randomNum}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
+    }, speed);
 }
 
 const mothMoveToFlameBottom = (moth,randomNum,edge) => {
     moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
-            randomNum--;
+            randomNum-=.25;
             edge++;
         }
         if (randomNum < 50) {
-            randomNum++;
-            edge++;
+            randomNum+=.25;
+            edge+=.25;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
             gameOver()
         }
-        moth.style = `position:absolute; bottom:${edge}%; width:30px; right:${randomNum}%`
-    }, 200);
+        moth.style = `position:absolute; bottom:${edge}%; width:30px; right:${randomNum}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
+    }, speed);
 }
 
 var gameOver = (function() {
@@ -135,28 +165,30 @@ var gameOver = (function() {
             executed = true;
             const h2 = document.createElement("h2");
             h2.innerText = "GAME OVER";
+            h2.style = "user-select: none; -webkit-user-select: none; -moz-user-select: none;"
             document.body.appendChild(h2);
             called = false;
         }
     };
 })();
 
-let count = 0;
+
 const createScoreCounter = () =>    {
     let counter = document.createElement("h3");
     counter.setAttribute("id", "counter");
-    counter.innerText = `${count}`;
+    counter.setAttribute("draggable","false")
+    counter.innerText = `${score}`;
     document.body.appendChild(counter);
-    counter.style = "align-self: flex-start;position: absolute; margin:3px"
+    counter.style = "align-self: flex-start;position: absolute; margin:3px;user-select: none; -webkit-user-select: none; -moz-user-select: none;"
 }
 
 const clickMoth = (moth) => {
     moth.addEventListener("click", (event) =>    {
-        count++;
+        score++;
         let counter = document.getElementById("counter");
         moth.remove();
         clearInterval(moth.dataset.id);
-        counter.innerText = `${count}`
+        counter.innerText = `${score}`
     })
 }
 
