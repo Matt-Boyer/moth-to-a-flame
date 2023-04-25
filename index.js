@@ -14,19 +14,19 @@ const intervalOfSpawn = () => {
     if (score > 5 && score < 10) {
         return 1200};
     if (score > 10 && score < 15) {
-        return 1000;
+        return 900;
         speed = 10;
     };
     if (score > 15 && score < 20) {
-        return 800;
+        return 700;
         speed = 150;
     };
     if (score > 20 && score < 25) {
-        return 600;
+        return 500;
         speed = 130;
     };
     if (score > 25) {
-        return 400;
+        return 300;
         speed = 100;
     };
 
@@ -104,6 +104,7 @@ const mothMoveToFlameRight = (moth,randomNum,edge) => {
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
             gameOver();
             displayFinalScore();
+            playAgain()
         }
         moth.style = `position:absolute; top:${randomNum}%; width:30px; right:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -123,6 +124,7 @@ const mothMoveToFlameLeft = (moth,randomNum,edge) => {
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
             gameOver();
             displayFinalScore();
+            playAgain()
         }
         moth.style = `position:absolute; top:${randomNum}%; width:30px; left:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -141,7 +143,8 @@ const mothMoveToFlameTop = (moth,randomNum,edge) => {
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
             gameOver();
-            displayFinalScore()
+            displayFinalScore();
+            playAgain()
         }
         moth.style = `position:absolute; top:${edge}%; width:30px; right:${randomNum}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -160,7 +163,8 @@ const mothMoveToFlameBottom = (moth,randomNum,edge) => {
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
             gameOver();
-            displayFinalScore()
+            displayFinalScore();
+            playAgain()
         }
         moth.style = `position:absolute; bottom:${edge}%; width:30px; right:${randomNum}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -209,6 +213,12 @@ const displayFinalScore = () => {
     lastScore.innerText = `${finalScore}`;
     document.body.appendChild(lastScore);
     lastScore.style = "align-self: flex-start;position: absolute; margin:3px;user-select: none; -webkit-user-select: none; -moz-user-select: none;"
+}
+
+const playAgain = () => {
+    const playAgainButton = document.createComment("button");
+    playAgainButton.innerText = "Play Again";
+    document.body.appendChild(playAgainButton);
 }
 
 startGame()
