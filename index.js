@@ -1,5 +1,6 @@
 
 //idea: cursor is flame dodge moths
+//different color moths take more takes
 //reset button
 //display highscores in local storage
 //sound effects
