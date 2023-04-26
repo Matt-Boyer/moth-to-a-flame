@@ -114,8 +114,12 @@ const mothMoveToFlameRight = (moth,randomNum,edge) => {
             isGameRunning = false
             gameOver();
             displayFinalScore();
+
             playAgainButton();
             resetGame()
+
+            
+
         }
         moth.style = `position:absolute; top:${randomNum}%; width:30px; right:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -136,8 +140,12 @@ const mothMoveToFlameLeft = (moth,randomNum,edge) => {
             isGameRunning = false
             gameOver();
             displayFinalScore();
+
             playAgainButton();
             resetGame()
+
+            
+
         }
         moth.style = `position:absolute; top:${randomNum}%; width:30px; left:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -158,8 +166,12 @@ const mothMoveToFlameTop = (moth,randomNum,edge) => {
             isGameRunning = false
             gameOver();
             displayFinalScore();
+
             playAgainButton();
             resetGame()
+
+            
+
         }
         moth.style = `position:absolute; top:${edge}%; width:30px; right:${randomNum}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -180,8 +192,12 @@ const mothMoveToFlameBottom = (moth,randomNum,edge) => {
             isGameRunning = false
             gameOver();
             displayFinalScore();
+
             playAgainButton();
             resetGame()
+
+            
+
         }
         moth.style = `position:absolute; bottom:${edge}%; width:30px; right:${randomNum}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -228,6 +244,7 @@ const displayFinalScore = () => {
     lastScore.style = "align-self: flex-start;position: absolute; margin:3px;user-select: none; -webkit-user-select: none; -moz-user-select: none;"
 }
 
+
 const playAgainButton = () => {
     const playAgainButton = document.createElement("button");
     playAgainButton.setAttribute("id", "playAgainButton");
@@ -259,6 +276,7 @@ const deleteExistingMoths = () =>   {
         ele.remove()
     });
 }
+
 
 
 startGame()
