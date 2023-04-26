@@ -115,10 +115,12 @@ const mothMoveToFlameRight = (moth,randomNum,edge) => {
             gameOver();
             displayFinalScore();
 
+
             playAgainButton();
             resetGame()
 
             
+
 
         }
         moth.style = `position:absolute; top:${randomNum}%; width:30px; right:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
@@ -141,10 +143,12 @@ const mothMoveToFlameLeft = (moth,randomNum,edge) => {
             gameOver();
             displayFinalScore();
 
+
             playAgainButton();
             resetGame()
 
             
+
 
         }
         moth.style = `position:absolute; top:${randomNum}%; width:30px; left:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
@@ -167,10 +171,12 @@ const mothMoveToFlameTop = (moth,randomNum,edge) => {
             gameOver();
             displayFinalScore();
 
+
             playAgainButton();
             resetGame()
 
             
+
 
         }
         moth.style = `position:absolute; top:${edge}%; width:30px; right:${randomNum}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
@@ -193,10 +199,12 @@ const mothMoveToFlameBottom = (moth,randomNum,edge) => {
             gameOver();
             displayFinalScore();
 
+
             playAgainButton();
             resetGame()
 
             
+
 
         }
         moth.style = `position:absolute; bottom:${edge}%; width:30px; right:${randomNum}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
@@ -245,6 +253,7 @@ const displayFinalScore = () => {
 }
 
 
+
 const playAgainButton = () => {
     const playAgainButton = document.createElement("button");
     playAgainButton.setAttribute("id", "playAgainButton");
@@ -276,6 +285,7 @@ const deleteExistingMoths = () =>   {
         ele.remove()
     });
 }
+
 
 
 
