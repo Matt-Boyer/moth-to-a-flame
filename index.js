@@ -9,7 +9,7 @@ let score = 0;
 //higher number is slower
 let speed = .05;
 // let intervalOfSpawn = 1500;
-
+let isGameRunning = false;
 //Levels
 const intervalOfSpawn = () => {
     if (score > 5 && score < 10) {
@@ -40,6 +40,7 @@ const createMoth = () => {
     const moth = document.createElement("img");
     moth.setAttribute("src", "https://cdn-icons-png.flaticon.com/512/350/350942.png");
     moth.setAttribute("data-id",`${mothId}`);
+    moth.setAttribute("class", "moth");
     moth.setAttribute("draggable", "false")
     mothId++;
     document.body.appendChild(moth);
@@ -47,19 +48,26 @@ const createMoth = () => {
     clickMoth(moth)
 }
 
+const play = () =>  {
+    isGameRunning = true;
+        createScoreCounter();
+        function interval() {
+            setTimeout(() => {
+                console.log(isGameRunning)
+                if (isGameRunning)  {
+                    createMoth();
+                    interval()
+                }
+                }, intervalOfSpawn());
+        };
+        interval()
+}
 
 const startGame = () => {
     const startButton = document.getElementById("startButton");
     startButton.addEventListener("click", () => {
         startButton.remove();
-        createScoreCounter();
-        function interval() {
-            setTimeout(() => {
-                createMoth();
-                interval()
-            }, intervalOfSpawn());
-        };
-        interval()
+        play()
     })
 }
 
@@ -103,9 +111,17 @@ const mothMoveToFlameRight = (moth,randomNum,edge) => {
             edge+=.03;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
+            isGameRunning = false
             gameOver();
             displayFinalScore();
-            playAgain()
+
+
+            playAgainButton();
+            resetGame()
+
+            
+
+
         }
         moth.style = `position:absolute; top:${randomNum}%; width:30px; right:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -123,9 +139,17 @@ const mothMoveToFlameLeft = (moth,randomNum,edge) => {
             edge+=.03;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
+            isGameRunning = false
             gameOver();
             displayFinalScore();
-            playAgain()
+
+
+            playAgainButton();
+            resetGame()
+
+            
+
+
         }
         moth.style = `position:absolute; top:${randomNum}%; width:30px; left:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -143,9 +167,17 @@ const mothMoveToFlameTop = (moth,randomNum,edge) => {
             edge+=.03;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
+            isGameRunning = false
             gameOver();
             displayFinalScore();
-            playAgain()
+
+
+            playAgainButton();
+            resetGame()
+
+            
+
+
         }
         moth.style = `position:absolute; top:${edge}%; width:30px; right:${randomNum}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -163,27 +195,30 @@ const mothMoveToFlameBottom = (moth,randomNum,edge) => {
             edge+=.03;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
+            isGameRunning = false
             gameOver();
             displayFinalScore();
-            playAgain()
+
+
+            playAgainButton();
+            resetGame()
+
+            
+
+
         }
         moth.style = `position:absolute; bottom:${edge}%; width:30px; right:${randomNum}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
 }
 
-var gameOver = (function() {
-    var executed = false;
-    return function() {
-        if (!executed) {
-            executed = true;
-            const h2 = document.createElement("h2");
-            h2.innerText = "GAME OVER";
-            h2.style = "user-select: none; -webkit-user-select: none; -moz-user-select: none;"
-            document.body.appendChild(h2);
-            called = false;
-        }
-    };
-})();
+var gameOver = () =>{
+    deleteExistingMoths()
+    const h2 = document.createElement("h2");
+    h2.setAttribute("id", "gameOverH2")
+    h2.innerText = "GAME OVER";
+    h2.style = "user-select: none; -webkit-user-select: none; -moz-user-select: none;"
+    document.body.appendChild(h2);
+};
 
 
 const createScoreCounter = () =>    {
@@ -210,16 +245,48 @@ const displayFinalScore = () => {
     counter.remove();
     let finalScore = score;
     let lastScore = document.createElement("h3");
+    lastScore.setAttribute("id","finalScore")
     lastScore.setAttribute("draggable","false");
     lastScore.innerText = `${finalScore}`;
     document.body.appendChild(lastScore);
     lastScore.style = "align-self: flex-start;position: absolute; margin:3px;user-select: none; -webkit-user-select: none; -moz-user-select: none;"
 }
 
-const playAgain = () => {
-    const playAgainButton = document.createComment("button");
+
+
+const playAgainButton = () => {
+    const playAgainButton = document.createElement("button");
+    playAgainButton.setAttribute("id", "playAgainButton");
     playAgainButton.innerText = "Play Again";
+    playAgainButton.style = "align-self: flex-start;position: absolute;margin-top: 75px;;user-select: none; -webkit-user-select: none; -moz-user-select: none;"
     document.body.appendChild(playAgainButton);
 }
+
+const resetGame = () => {
+    let playAgainButton = document.getElementById("playAgainButton");
+    playAgainButton.addEventListener("click", () => {
+        playAgainButton.remove()
+        const gameOverH2 = document.getElementById("gameOverH2");
+        const finalScore = document.getElementById("finalScore");
+        finalScore.remove();
+        gameOverH2.remove();
+        play();
+        score = 0;
+        const counter = document.getElementById("counter");
+        counter.innerText = `${score}`
+    })
+}
+
+
+const deleteExistingMoths = () =>   {
+    let moth = document.querySelectorAll(".moth");
+    moth.forEach(ele => {
+        clearInterval(ele.dataset.id)
+        ele.remove()
+    });
+}
+
+
+
 
 startGame()
