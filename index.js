@@ -41,9 +41,11 @@ const createMoth = () => {
     moth.setAttribute("src", "https://cdn-icons-png.flaticon.com/512/350/350942.png");
     moth.setAttribute("data-id",`${mothId}`);
     moth.setAttribute("class", "moth");
+
     if (document.body.id == "darkmode"){
         moth.classList.add("dark")
     }
+
     moth.setAttribute("draggable", "false")
     mothId++;
     document.body.appendChild(moth);
@@ -66,6 +68,7 @@ const play = () =>  {
                 }, intervalOfSpawn());
         };
         interval()
+
     }
 const themeclicker = () =>{
     const darkBtn = document.getElementById("switch-mode")
@@ -222,8 +225,6 @@ const mothMoveToFlameTop = (moth,randomNum,edge) => {
             resetGame()
 
 
-
-
         }
         moth.style = `position:absolute; top:${edge}%; width:30px; right:${randomNum}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -258,7 +259,9 @@ const mothMoveToFlameBottom = (moth,randomNum,edge) => {
 }
 
 var gameOver = () =>{
+
     createLeaderBoard()
+
     deleteExistingMoths()
     const h2 = document.createElement("h2");
     h2.setAttribute("id", "gameOverH2")
@@ -301,6 +304,7 @@ const displayFinalScore = () => {
     storeScore(finalScore)
 }
 
+
 const storeScore = (finalScore)=>{
     let scores = localStorage.getItem("highscores")
     if (scores){
@@ -319,6 +323,7 @@ const storeScore = (finalScore)=>{
     }
 
 }
+
 
 
 const playAgainButton = () => {
