@@ -33,6 +33,9 @@ let mothId = 0;
 
 const createMoth = () => {
     const moth = document.createElement("img");
+    if (document.body.id == "darkmode"){
+        moth.setAttribute("class","dark")
+    }
     moth.setAttribute("src", "https://cdn-icons-png.flaticon.com/512/350/350942.png");
     moth.setAttribute("data-id",`${mothId}`);
     moth.setAttribute("draggable", "false")
@@ -42,11 +45,48 @@ const createMoth = () => {
     clickMoth(moth)
 }
 
+const themeclicker = () =>{
+    const darkBtn = document.getElementById("switch-mode")
+    darkBtn.addEventListener("click", ()=>{
+        if(document.body.id != "darkmode"){
+            document.body.setAttribute("id","darkmode")
+        }else{
+            document.body.removeAttribute("id","darkmode")
+        }
+    })
+}
+
+const createLeaderBoard = () =>{
+    let scores = localStorage.getItem("highscores")
+    if (scores){
+        const div = document.createElement("div")
+        div.setAttribute("class","scores")
+        const p = document.createElement("p")
+        const ol = document.createElement("ul")
+        p.innerText = "HighScores"
+        scores = JSON.parse(scores)
+
+        scores.forEach( (item)=>{
+            const li = document.createElement("li")
+            li.innerText = item
+            ol.append(li)
+        })
+       div.append(p,ol)
+        document.body.append(div)
+    }
+}
 
 const startGame = () => {
+    localStorage.setItem("highscores",JSON.stringify(["10","9","90"]))
+    themeclicker()
+    createLeaderBoard()
     const startButton = document.getElementById("startButton");
+    const darkmodebtn = document.getElementById("switch-mode")
+    const scores = document.querySelector(".scores")
     startButton.addEventListener("click", () => {
         startButton.remove();
+        darkmodebtn.remove();
+        scores.remove();
         createScoreCounter();
         function interval() {
             setTimeout(() => {
