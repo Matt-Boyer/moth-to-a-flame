@@ -1,8 +1,13 @@
 
 //idea: cursor is flame dodge moths
+//different color moths take more takes
+//reset button
+//display highscores in local storage
+//sound effects
+//look into click registering accurately requestanimationframe
 let score = 0;
 //higher number is slower
-let speed = 8;
+let speed = .05;
 // let intervalOfSpawn = 1500;
 
 //Levels
@@ -10,19 +15,19 @@ const intervalOfSpawn = () => {
     if (score > 5 && score < 10) {
         return 1200};
     if (score > 10 && score < 15) {
-        return 1000;
+        return 900;
         speed = 10;
     };
     if (score > 15 && score < 20) {
-        return 800;
+        return 700;
         speed = 150;
     };
     if (score > 20 && score < 25) {
-        return 600;
+        return 500;
         speed = 130;
     };
     if (score > 25) {
-        return 400;
+        return 300;
         speed = 100;
     };
 
@@ -90,16 +95,17 @@ const mothMoveToFlameRight = (moth,randomNum,edge) => {
     moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
-            randomNum-=.06;
-            edge+=.06;
+            randomNum-=.03;
+            edge+=.03;
         }
         if (randomNum < 50) {
-            randomNum+=.06;
-            edge+=.06;
+            randomNum+=.03;
+            edge+=.03;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
             gameOver();
             displayFinalScore();
+            playAgain()
         }
         moth.style = `position:absolute; top:${randomNum}%; width:30px; right:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -109,16 +115,17 @@ const mothMoveToFlameLeft = (moth,randomNum,edge) => {
     moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
-            randomNum-=.06;
-            edge+=.06;
+            randomNum-=.03;
+            edge+=.03;
         }
         if (randomNum < 50) {
-            randomNum+=.06;
-            edge+=.06;
+            randomNum+=.03;
+            edge+=.03;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
             gameOver();
             displayFinalScore();
+            playAgain()
         }
         moth.style = `position:absolute; top:${randomNum}%; width:30px; left:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -128,16 +135,17 @@ const mothMoveToFlameTop = (moth,randomNum,edge) => {
     moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
-            randomNum-=.06;
-            edge+=.06;
+            randomNum-=.03;
+            edge+=.03;
         }
         if (randomNum < 50) {
-            randomNum+=.06;
-            edge+=.06;
+            randomNum+=.03;
+            edge+=.03;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
             gameOver();
-            displayFinalScore()
+            displayFinalScore();
+            playAgain()
         }
         moth.style = `position:absolute; top:${edge}%; width:30px; right:${randomNum}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -147,16 +155,17 @@ const mothMoveToFlameBottom = (moth,randomNum,edge) => {
     moth.dataset.id =
     setInterval(() => {
         if (randomNum > 50) {
-            randomNum-=.06;
-            edge+=.06;
+            randomNum-=.03;
+            edge+=.03;
         }
         if (randomNum < 50) {
-            randomNum+=.06;
-            edge+=.06;
+            randomNum+=.03;
+            edge+=.03;
         }
         if ((randomNum  > 48 && randomNum < 52) && (edge > 48))    {
             gameOver();
-            displayFinalScore()
+            displayFinalScore();
+            playAgain()
         }
         moth.style = `position:absolute; bottom:${edge}%; width:30px; right:${randomNum}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -205,6 +214,12 @@ const displayFinalScore = () => {
     lastScore.innerText = `${finalScore}`;
     document.body.appendChild(lastScore);
     lastScore.style = "align-self: flex-start;position: absolute; margin:3px;user-select: none; -webkit-user-select: none; -moz-user-select: none;"
+}
+
+const playAgain = () => {
+    const playAgainButton = document.createComment("button");
+    playAgainButton.innerText = "Play Again";
+    document.body.appendChild(playAgainButton);
 }
 
 startGame()
