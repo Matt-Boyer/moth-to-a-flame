@@ -6,6 +6,7 @@
     user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
+
 }
 
 body {
@@ -19,5 +20,27 @@ body {
 
 #startButton {
     align-self: flex-start;
+}
+
+#darkmode{
+    background-color: black;
+    color: white;
+}
+
+.buttons{
+    align-self: flex-start;
     position: absolute;
+    padding: 10px;
+}
+
+
+
+.dark{
+    filter: invert(1);
+}
+
+.scores{
+    position: absolute;
+    right: 10px;
+    top: 0px;
 }
