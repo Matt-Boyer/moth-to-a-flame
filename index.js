@@ -1,4 +1,3 @@
-
 //idea: cursor is flame dodge moths
 //different color moths take more takes
 //reset button
@@ -40,6 +39,10 @@ const createMoth = () => {
     const moth = document.createElement("img");
     moth.setAttribute("src", "https://cdn-icons-png.flaticon.com/512/350/350942.png");
     moth.setAttribute("data-id",`${mothId}`);
+    moth.setAttribute("class", "moth");
+    if (document.body.id == "darkmode"){
+        moth.classList.add("dark")
+    }
     moth.setAttribute("draggable", "false")
     mothId++;
     document.body.appendChild(moth);
@@ -48,10 +51,9 @@ const createMoth = () => {
 }
 
 
-const startGame = () => {
-    const startButton = document.getElementById("startButton");
-    startButton.addEventListener("click", () => {
-        startButton.remove();
+const play = () =>  {
+    isGameRunning = true;
+    createLeaderBoard()
         createScoreCounter();
         function interval() {
             setTimeout(() => {
@@ -63,8 +65,6 @@ const startGame = () => {
                 }, intervalOfSpawn());
         };
         interval()
-
-
     }
 const themeclicker = () =>{
     const darkBtn = document.getElementById("switch-mode")
@@ -99,6 +99,7 @@ if (!isGameRunning){
 }else{
     const scores = document.querySelector(".scores")
     if (scores){
+        console.log("test")
         scores.remove()
     }
 }
@@ -112,7 +113,6 @@ const startGame = () => {
         startButton.remove();
         darkmodebtn.remove();
         play()
-
     })
 }
 
@@ -159,7 +159,14 @@ const mothMoveToFlameRight = (moth,randomNum,edge) => {
             isGameRunning = false
             gameOver();
             displayFinalScore();
-            playAgain()
+
+
+            playAgainButton();
+            resetGame()
+
+
+
+
         }
         moth.style = `position:absolute; top:${randomNum}%; width:30px; right:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -182,10 +189,8 @@ const mothMoveToFlameLeft = (moth,randomNum,edge) => {
             displayFinalScore();
 
 
-
             playAgainButton();
             resetGame()
-
 
 
 
@@ -212,9 +217,9 @@ const mothMoveToFlameTop = (moth,randomNum,edge) => {
             displayFinalScore();
 
 
-
             playAgainButton();
             resetGame()
+
 
 
 
@@ -240,7 +245,6 @@ const mothMoveToFlameBottom = (moth,randomNum,edge) => {
             displayFinalScore();
 
 
-
             playAgainButton();
             resetGame()
 
@@ -253,11 +257,7 @@ const mothMoveToFlameBottom = (moth,randomNum,edge) => {
 }
 
 var gameOver = () =>{
-
-
     createLeaderBoard()
-
-
     deleteExistingMoths()
     const h2 = document.createElement("h2");
     h2.setAttribute("id", "gameOverH2")
@@ -300,7 +300,6 @@ const displayFinalScore = () => {
     storeScore(finalScore)
 }
 
-
 const storeScore = (finalScore)=>{
     let scores = localStorage.getItem("highscores")
     if (scores){
@@ -320,7 +319,6 @@ const storeScore = (finalScore)=>{
     }
 
 }
-
 
 
 const playAgainButton = () => {
