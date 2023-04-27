@@ -40,12 +40,6 @@ const createMoth = () => {
     const moth = document.createElement("img");
     moth.setAttribute("src", "https://cdn-icons-png.flaticon.com/512/350/350942.png");
     moth.setAttribute("data-id",`${mothId}`);
-    moth.setAttribute("class", "moth");
-
-    if (document.body.id == "darkmode"){
-        moth.classList.add("dark")
-    }
-
     moth.setAttribute("draggable", "false")
     mothId++;
     document.body.appendChild(moth);
@@ -54,9 +48,10 @@ const createMoth = () => {
 }
 
 
-const play = () =>  {
-    isGameRunning = true;
-    createLeaderBoard()
+const startGame = () => {
+    const startButton = document.getElementById("startButton");
+    startButton.addEventListener("click", () => {
+        startButton.remove();
         createScoreCounter();
         function interval() {
             setTimeout(() => {
@@ -68,55 +63,6 @@ const play = () =>  {
                 }, intervalOfSpawn());
         };
         interval()
-
-    }
-const themeclicker = () =>{
-    const darkBtn = document.getElementById("switch-mode")
-    darkBtn.addEventListener("click", ()=>{
-        if(document.body.id != "darkmode"){
-            document.body.setAttribute("id","darkmode")
-        }else{
-            document.body.removeAttribute("id","darkmode")
-        }
-    })
-}
-const createLeaderBoard = () =>{
-    console.log("creating",isGameRunning)
-    let scores = localStorage.getItem("highscores")
-if (!isGameRunning){
-    if (scores){
-        const div = document.createElement("div")
-        div.setAttribute("class","scores")
-        const p = document.createElement("p")
-        const ol = document.createElement("ul")
-        p.innerText = "HighScores"
-        scores = JSON.parse(scores)
-
-        scores.forEach( (item)=>{
-            const li = document.createElement("li")
-            li.innerText = item
-            ol.append(li)
-        })
-       div.append(p,ol)
-        document.body.append(div)
-    }
-}else{
-    const scores = document.querySelector(".scores")
-    if (scores){
-        console.log("test")
-        scores.remove()
-    }
-}
-}
-
-const startGame = () => {
-    themeclicker()
-    const startButton = document.getElementById("startButton");
-    const darkmodebtn = document.getElementById("switch-mode")
-    startButton.addEventListener("click", () => {
-        startButton.remove();
-        darkmodebtn.remove();
-        play()
     })
 }
 
@@ -163,14 +109,7 @@ const mothMoveToFlameRight = (moth,randomNum,edge) => {
             isGameRunning = false
             gameOver();
             displayFinalScore();
-
-
-            playAgainButton();
-            resetGame()
-
-
-
-
+            playAgain()
         }
         moth.style = `position:absolute; top:${randomNum}%; width:30px; right:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -193,8 +132,10 @@ const mothMoveToFlameLeft = (moth,randomNum,edge) => {
             displayFinalScore();
 
 
+
             playAgainButton();
             resetGame()
+
 
 
 
@@ -221,8 +162,10 @@ const mothMoveToFlameTop = (moth,randomNum,edge) => {
             displayFinalScore();
 
 
+
             playAgainButton();
             resetGame()
+
 
 
         }
@@ -247,6 +190,7 @@ const mothMoveToFlameBottom = (moth,randomNum,edge) => {
             displayFinalScore();
 
 
+
             playAgainButton();
             resetGame()
 
@@ -260,7 +204,9 @@ const mothMoveToFlameBottom = (moth,randomNum,edge) => {
 
 var gameOver = () =>{
 
+
     createLeaderBoard()
+
 
     deleteExistingMoths()
     const h2 = document.createElement("h2");
