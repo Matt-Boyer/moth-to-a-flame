@@ -40,12 +40,6 @@ const createMoth = () => {
     const moth = document.createElement("img");
     moth.setAttribute("src", "https://cdn-icons-png.flaticon.com/512/350/350942.png");
     moth.setAttribute("data-id",`${mothId}`);
-    moth.setAttribute("class", "moth");
-
-    if (document.body.id == "darkmode"){
-        moth.classList.add("dark")
-    }
-
     moth.setAttribute("draggable", "false")
     mothId++;
     document.body.appendChild(moth);
@@ -54,9 +48,10 @@ const createMoth = () => {
 }
 
 
-const play = () =>  {
-    isGameRunning = true;
-    createLeaderBoard()
+const startGame = () => {
+    const startButton = document.getElementById("startButton");
+    startButton.addEventListener("click", () => {
+        startButton.remove();
         createScoreCounter();
         function interval() {
             setTimeout(() => {
@@ -68,6 +63,7 @@ const play = () =>  {
                 }, intervalOfSpawn());
         };
         interval()
+
 
     }
 const themeclicker = () =>{
@@ -116,6 +112,7 @@ const startGame = () => {
         startButton.remove();
         darkmodebtn.remove();
         play()
+
     })
 }
 
@@ -162,14 +159,7 @@ const mothMoveToFlameRight = (moth,randomNum,edge) => {
             isGameRunning = false
             gameOver();
             displayFinalScore();
-
-
-            playAgainButton();
-            resetGame()
-
-
-
-
+            playAgain()
         }
         moth.style = `position:absolute; top:${randomNum}%; width:30px; right:${edge}%;user-select: none;-webkit-user-select: none; -moz-user-select: none;`
     }, speed);
@@ -192,8 +182,10 @@ const mothMoveToFlameLeft = (moth,randomNum,edge) => {
             displayFinalScore();
 
 
+
             playAgainButton();
             resetGame()
+
 
 
 
@@ -220,8 +212,10 @@ const mothMoveToFlameTop = (moth,randomNum,edge) => {
             displayFinalScore();
 
 
+
             playAgainButton();
             resetGame()
+
 
 
         }
@@ -246,6 +240,7 @@ const mothMoveToFlameBottom = (moth,randomNum,edge) => {
             displayFinalScore();
 
 
+
             playAgainButton();
             resetGame()
 
@@ -259,7 +254,9 @@ const mothMoveToFlameBottom = (moth,randomNum,edge) => {
 
 var gameOver = () =>{
 
+
     createLeaderBoard()
+
 
     deleteExistingMoths()
     const h2 = document.createElement("h2");
