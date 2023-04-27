@@ -103,7 +103,6 @@ if (!isGameRunning){
 }else{
     const scores = document.querySelector(".scores")
     if (scores){
-        console.log("test")
         scores.remove()
     }
 }
