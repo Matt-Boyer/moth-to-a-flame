@@ -308,14 +308,15 @@ const storeScore = (finalScore)=>{
     let scores = localStorage.getItem("highscores")
     if (scores){
         scores = JSON.parse(scores)
+        console.log(scores)
         if (scores.length < 5){
             scores.push(finalScore)
-            localStorage.setItem("highscores",JSON.stringify(scores))
         }else{
-            let smallest = Math.min(scores)
-            let index = scores.indexOf(smallest)
-            if (finalScore > smallest) scores.splice(index,1,finalScore)
+            if (finalScore > scores[4]) scores[4]=finalScore
         }
+        scores = scores.sort((a,b)=> b - a)
+        console.log("scores2",scores)
+        localStorage.setItem("highscores",JSON.stringify(scores))
     }else{
         let arr = [finalScore]
         localStorage.setItem("highscores",JSON.stringify(arr))
