@@ -42,9 +42,11 @@ const createMoth = () => {
     moth.setAttribute("data-id",`${mothId}`);
     moth.setAttribute("class", "moth");
 
+
     if (document.body.id == "darkmode"){
         moth.classList.add("dark")
     }
+
 
     moth.setAttribute("draggable", "false")
     mothId++;
@@ -54,9 +56,11 @@ const createMoth = () => {
 }
 
 
+
 const play = () =>  {
     isGameRunning = true;
     createLeaderBoard()
+
         createScoreCounter();
         function interval() {
             setTimeout(() => {
@@ -68,6 +72,7 @@ const play = () =>  {
                 }, intervalOfSpawn());
         };
         interval()
+
 
     }
 const themeclicker = () =>{
@@ -164,8 +169,10 @@ const mothMoveToFlameRight = (moth,randomNum,edge) => {
             displayFinalScore();
 
 
+
             playAgainButton();
             resetGame()
+
 
 
 
@@ -192,8 +199,10 @@ const mothMoveToFlameLeft = (moth,randomNum,edge) => {
             displayFinalScore();
 
 
+
             playAgainButton();
             resetGame()
+
 
 
 
@@ -220,8 +229,10 @@ const mothMoveToFlameTop = (moth,randomNum,edge) => {
             displayFinalScore();
 
 
+
             playAgainButton();
             resetGame()
+
 
 
         }
@@ -246,6 +257,7 @@ const mothMoveToFlameBottom = (moth,randomNum,edge) => {
             displayFinalScore();
 
 
+
             playAgainButton();
             resetGame()
 
@@ -259,7 +271,9 @@ const mothMoveToFlameBottom = (moth,randomNum,edge) => {
 
 var gameOver = () =>{
 
+
     createLeaderBoard()
+
 
     deleteExistingMoths()
     const h2 = document.createElement("h2");
